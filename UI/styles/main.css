@@ -1,0 +1,17 @@
+/* IELTS Listening Player — global / host-level styles.
+   Internal component styling lives inside each shadow root (SHARED_CSS). */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+body {
+  background: #0f1419;
+  color: #e6edf3;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "PingFang SC", "Microsoft YaHei", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+listening-app {
+  display: block;
+  height: 100vh;
+}
