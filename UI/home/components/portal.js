@@ -25,7 +25,7 @@ class HubPage extends HTMLElement {
             <div class="icon" style="background:${accent}22;color:${accent}">${window.wEsc(
             m.icon || "•"
           )}</div>
-            <div class="body">
+            <div class="meta">
               <div class="title">${window.wEsc(m.title || m.key)}</div>
               <div class="desc">${window.wEsc(m.desc || "")}</div>
             </div>
@@ -37,7 +37,7 @@ class HubPage extends HTMLElement {
             <div class="icon" style="background:${accent}22;color:${accent}">${window.wEsc(
           m.icon || "•"
         )}</div>
-            <div class="body">
+            <div class="meta">
               <div class="title">${window.wEsc(m.title || m.key)}</div>
               <div class="desc">${window.wEsc(m.desc || "")}</div>
             </div>
@@ -52,7 +52,7 @@ class HubPage extends HTMLElement {
         :host{display:block;height:100vh;height:100dvh;overflow:hidden;}
         .page{height:100vh;height:100dvh;display:flex;flex-direction:column;overflow:hidden;}
         /* 顶栏区 */
-        .topbar{flex:none;padding:32px 28px 20px;max-width:1080px;width:100%;margin:0 auto;box-sizing:border-box;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;}
+        .topbar{flex:none;padding:32px 28px 20px;max-width:1080px;width:100%;margin:0 auto;box-sizing:border-box;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;background:transparent;border-bottom:none;}
         .brand{display:flex;align-items:center;gap:12px;margin-bottom:6px;}
         .brand h1{font-size:26px;margin:0;letter-spacing:.3px;}
         .tagline{color:var(--muted);font-size:15px;margin:0;}
