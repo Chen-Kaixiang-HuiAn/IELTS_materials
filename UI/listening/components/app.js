@@ -1,32 +1,13 @@
 /* ============================================================
    listening-app.js
-   - Defines window.SHARED_CSS (base styles injected into every
-     component shadow root) and window.buildAudioFlat() so all
-     components agree on the track ordering.
+   - Defines window.buildAudioFlat() so all components agree on the
+     track ordering. (Base theme lives in UI/shared.js.)
    - Registers <listening-app>, the controller that owns the single
-     <audio> element and wires the sidebar (<track-list>) to the
-     player (<audio-player>).
+     <audio> element and wires the sidebar (<listening-track-list>)
+     to the player (<listening-player>).
    ============================================================ */
 
-window.SHARED_CSS = `
-:host{
-  --bg:#0f1419; --panel:#161c24; --panel2:#1d2530; --border:#2a323d;
-  --text:#e6edf3; --muted:#8b97a5; --accent:#4db6ac; --accent2:#3a8f87;
-  --hover:#222c38; --active:#16302c; --danger:#e57373;
-  display:block; box-sizing:border-box; color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;
-}
-*{box-sizing:border-box;}
-button{
-  font-family:inherit; color:var(--text); background:var(--panel2);
-  border:1px solid var(--border); border-radius:8px; cursor:pointer;
-  transition:background .15s,border-color .15s,transform .05s;
-}
-button:hover{background:var(--hover);}
-button:active{transform:translateY(1px);}
-button:focus-visible{outline:2px solid var(--accent); outline-offset:1px;}
-input[type=range]{accent-color:var(--accent); cursor:pointer;}
-`;
+// Shared styles now live in UI/shared.js (window.SHARED_CSS).
 
 // Build a flat, ordered list of every track from the library tree.
 // Every component that needs an "index" uses this so they stay in sync.
@@ -80,43 +61,84 @@ class ListeningApp extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>${window.SHARED_CSS}</style>
       <style>
-        .app{display:flex;flex-direction:column;height:100vh;background:var(--bg);}
+        .app{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden;background:var(--bg);}
         .topbar{
-          display:flex;align-items:center;justify-content:space-between;
+          flex:none;display:flex;align-items:center;justify-content:space-between;
           padding:14px 20px;border-bottom:1px solid var(--border);background:var(--panel);
         }
         .brand{font-weight:700;font-size:16px;letter-spacing:.3px;}
         .brand .dot{color:var(--accent);}
+        .menu-btn{display:none;flex:none;width:38px;height:34px;font-size:17px;margin-right:10px;}
+        .topright{display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
         .hint{color:var(--muted);font-size:12px;}
-        .body{flex:1;display:flex;min-height:0;}
+        .body{flex:1;display:flex;min-height:0;position:relative;}
         .sidebar{width:320px;flex:none;border-right:1px solid var(--border);overflow-y:auto;background:var(--panel);scrollbar-width:none;-ms-overflow-style:none;}
         .sidebar::-webkit-scrollbar{width:0;height:0;display:none;}
-        .stage{flex:1;display:flex;flex-direction:column;min-width:0;}
+        .stage{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden;}
+        .backdrop{display:none;position:absolute;inset:0;background:rgba(0,0,0,.45);z-index:5;}
         .stage-empty{
           flex:1;display:flex;align-items:center;justify-content:center;
           color:var(--muted);font-size:15px;padding:24px;text-align:center;
         }
+        .foot{
+          border-top:1px solid var(--border);background:var(--panel);
+          color:var(--muted);font-size:12.5px;text-align:center;padding:14px 20px;
+        }
+        .foot .name{color:var(--text);font-weight:600;}
+        /* ── 移动端：左栏改为抽屉 ── */
+        @media (max-width:768px){
+          .menu-btn{display:inline-flex;align-items:center;justify-content:center;}
+          .hint{display:none;}
+          .body{position:relative;}
+          .sidebar{
+            position:absolute;top:0;left:0;bottom:0;z-index:10;
+            width:82%;max-width:340px;
+            transform:translateX(-100%);
+            transition:transform .22s ease;
+            box-shadow:4px 0 24px rgba(0,0,0,.4);
+          }
+          .app.nav-open .sidebar{transform:none;}
+          .app.nav-open .backdrop{display:block;}
+          .stage-empty{font-size:13px;padding:16px;}
+        }
       </style>
       <div class="app">
         <header class="topbar">
-          <div class="brand"><span class="dot">●</span> IELTS Listening</div>
-          <div class="hint">空格 播放/暂停 · ← → 快退快进 · ↑ ↓ 音量</div>
+          <div class="brand"><button class="menu-btn" id="menu" title="目录" aria-label="目录">☰</button><span class="dot">●</span> IELTS Listening</div>
+          <div class="topright">
+            <div class="hint">空格 播放/暂停 · ← → 快退快进 · ↑ ↓ 音量</div>
+            <theme-toggle></theme-toggle>
+          </div>
         </header>
         <div class="body">
-          <aside class="sidebar"><track-list></track-list></aside>
+          <div class="backdrop" id="backdrop"></div>
+          <aside class="sidebar"><listening-track-list></listening-track-list></aside>
           <main class="stage">
-            <audio-player id="player"></audio-player>
+            <listening-player id="player"></listening-player>
             <div class="stage-empty" id="empty">← 从左侧选择一段音频开始练习</div>
           </main>
         </div>
+        <footer class="foot">Built by <span class="name">Chen Kaixiang</span>, ${new Date().getFullYear()}</footer>
       </div>
     `;
 
-    this.listEl = this.shadowRoot.querySelector("track-list");
+    this.listEl = this.shadowRoot.querySelector("listening-track-list");
     this.player = this.shadowRoot.querySelector("#player");
     this.emptyEl = this.shadowRoot.querySelector("#empty");
 
-    this.listEl.addEventListener("track-select", (e) => this.playIndex(e.detail.index));
+    // Mobile drawer: open/close the sidebar, close on backdrop or selection.
+    this._appEl = this.shadowRoot.querySelector(".app");
+    this.shadowRoot.querySelector("#menu").addEventListener("click", () =>
+      this._appEl.classList.toggle("nav-open")
+    );
+    this.shadowRoot.querySelector("#backdrop").addEventListener("click", () =>
+      this._appEl.classList.remove("nav-open")
+    );
+
+    this.listEl.addEventListener("track-select", (e) => {
+      this._appEl.classList.remove("nav-open");
+      this.playIndex(e.detail.index);
+    });
     this.player.addEventListener("toggle", () => this.togglePlay());
     this.player.addEventListener("seek", (e) => this.seekTo(e.detail.ratio));
     this.player.addEventListener("rate", (e) => this.setRate(e.detail.value));
@@ -290,4 +312,4 @@ class ListeningApp extends HTMLElement {
   }
 }
 
-customElements.define("listening-app", ListeningApp);
+defineComponent("listening-app", ListeningApp);

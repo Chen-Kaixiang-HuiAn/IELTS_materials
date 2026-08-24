@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>IELTS Materials · Hub</title>
+    <link rel="stylesheet" href="UI/common/styles/ui-base.css" />
+  </head>
+  <body>
+    <hub-page></hub-page>
+
+    <!-- STANDARD LOAD ORDER (root facade): common/standard → common/shared → home/manifest → home/components/portal -->
+    <script src="UI/common/page-standard.js"></script>
+    <script src="UI/common/shared.js"></script>
+    <script>window.initTheme();</script>
+    <script src="UI/common/components/theme-toggle.js"></script>
+    <script src="UI/home/manifest.js"></script>
+    <script src="UI/home/components/portal.js"></script>
+  </body>
+</html>

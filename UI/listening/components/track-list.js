@@ -1,5 +1,5 @@
 /* ============================================================
-   track-list.js — <track-list>
+   listening-track-list.js — <listening-track-list>
    Collapsible Cambridge 14–21 → Test → Section tree.
    Emits "track-select" {index, file, title} on click.
    ============================================================ */
@@ -10,7 +10,7 @@ function esc(s) {
   );
 }
 
-class TrackList extends HTMLElement {
+class ListeningTrackList extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
@@ -82,8 +82,8 @@ class TrackList extends HTMLElement {
           border-radius:8px;cursor:pointer;color:var(--text);font-size:13px;
         }
         .sec:hover{background:var(--hover);}
-        .sec.active{background:var(--active);color:#fff;}
-        .sec.active .sec-no{background:var(--accent);color:#06211e;}
+        .sec.active{background:var(--accent-grad);color:var(--on-accent);font-weight:600;}
+        .sec.active .sec-no{background:rgba(255,255,255,.22);color:var(--on-accent);}
         .sec-no{
           flex:none;font-size:11px;font-weight:700;color:var(--accent);
           background:var(--panel2);border-radius:6px;padding:2px 6px;min-width:30px;text-align:center;
@@ -156,4 +156,4 @@ class TrackList extends HTMLElement {
   }
 }
 
-customElements.define("track-list", TrackList);
+defineComponent("listening-track-list", ListeningTrackList);

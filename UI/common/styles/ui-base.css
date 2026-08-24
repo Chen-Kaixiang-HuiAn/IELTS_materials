@@ -1,0 +1,50 @@
+/* IELTS Materials UI — global / host-level base styles (shared by all pages).
+   Internal component styling lives inside each shadow root (SHARED_CSS). */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+/* Body background/colour follow the theme tokens so the page chrome
+   (any area not covered by a component) switches with the theme.
+   Default to dark tokens; the light override below comes from the same
+   :root[data-theme] selectors that shared.js injects, but we also set a
+   static fallback here so it works even before shared.js runs. */
+body {
+  background: var(--bg, #0f1419);
+  color: var(--text, #e6edf3);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "PingFang SC", "Microsoft YaHei", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+/* These mirror shared.js token blocks so body colour tracks the theme
+   even in the short window before/without the injected style.
+   Accent is a blue-violet gradient mix (no green). */
+:root { --bg:#0f1419; --text:#e6edf3; --panel:#161c24; --panel2:#1d2530;
+        --border:#2a323d; --muted:#8b97a5; --accent:#7b8cff; --accent2:#9b6cff;
+        --accent-grad:linear-gradient(135deg,#5b6cff 0%,#9b6cff 100%);
+        --on-accent:#ffffff; --active:#2a2350; }
+:root[data-theme="light"] {
+  --bg:#f4f6f9; --text:#1c2530; --panel:#ffffff; --panel2:#eef1f5;
+  --border:#d7dde5; --muted:#5b6776; --accent:#5b54e6; --accent2:#7b3ff2;
+  --accent-grad:linear-gradient(135deg,#5b6cff 0%,#9b6cff 100%);
+  --on-accent:#ffffff; --active:#e7e2fb;
+}
+/* Each root component fills the viewport and lays out four fixed regions:
+   top bar / left nav / right content / footer. Only the content region
+   scrolls; the others are pinned (see each component's shadow styles).
+   Use dvh so mobile browser chrome (address bar) doesn't clip the layout. */
+listening-app,
+writing-app,
+hub-page {
+  display: block;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+/* Global guards so a component never causes page-level horizontal scroll
+   on small screens. Each root component already sets overflow:hidden, but
+   the body itself is the safety net. */
+html, body {
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
