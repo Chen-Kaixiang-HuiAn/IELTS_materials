@@ -8,7 +8,7 @@
 
 ---
 
-- ## 一、开头段 · 改写题目 + 亮明立场（intro / thesis）
+## 一、开头段 · 改写题目 + 亮明立场（intro / thesis）
 
 **骨架 1：双方观点 + 我的立场（Discuss / 利弊题通用）**
 - `Some argue that [观点A], while others believe [观点B]. [While ______], I (agree/disagree/hold the view) that [我的立场].` → 有人认为……，另一些人认为……。[尽管……]，我（同意/不同意/认为）……
