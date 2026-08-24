@@ -54,7 +54,6 @@ class HubPage extends HTMLElement {
         /* 顶栏区 */
         .topbar{flex:none;padding:32px 28px 20px;max-width:1080px;width:100%;margin:0 auto;box-sizing:border-box;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;}
         .brand{display:flex;align-items:center;gap:12px;margin-bottom:6px;}
-        .brand .dot{width:12px;height:12px;border-radius:50%;background:var(--accent-grad);box-shadow:0 0 14px var(--accent2);}
         .brand h1{font-size:26px;margin:0;letter-spacing:.3px;}
         .tagline{color:var(--muted);font-size:15px;margin:0;}
         /* 右栏内容显示区（唯一可滚动） */
@@ -93,12 +92,7 @@ class HubPage extends HTMLElement {
           background:var(--panel2);border:1px solid var(--border);border-radius:999px;
           padding:3px 10px;
         }
-        /* 页脚区 */
-        .foot{
-          flex:none;border-top:1px solid var(--border);background:var(--panel);
-          color:var(--muted);font-size:12.5px;text-align:center;padding:14px 20px;
-        }
-        .foot .name{color:var(--text);font-weight:600;}
+        /* 页脚区：复用标准 .foot（见 window.SHARED_CSS），此处不再重复 */
         /* ── 移动端：卡片单列、顶栏收紧、字号下调 ── */
         @media (max-width:768px){
           .topbar{padding:18px 16px 12px;flex-direction:column;align-items:stretch;gap:12px;}

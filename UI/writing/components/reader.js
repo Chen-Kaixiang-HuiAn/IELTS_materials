@@ -161,7 +161,7 @@ class WritingReader extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>${window.SHARED_CSS}</style>
       <style>
-        :host{display:block;height:100%;overflow:hidden;display:flex;flex-direction:column;}
+        :host{display:flex;flex-direction:column;flex:1;min-height:0;}
         .switcher{display:flex;gap:8px;padding:12px 20px;border-bottom:1px solid var(--border);
           background:var(--panel);flex:none;}
         .sw-btn{appearance:none;border:1px solid var(--border);background:var(--panel2);color:var(--muted);
@@ -169,44 +169,17 @@ class WritingReader extends HTMLElement {
         .sw-btn:hover{color:var(--text);}
         .sw-btn.on{background:var(--accent-grad);color:var(--on-accent);border-color:var(--accent);}
         .sw-sep{flex:1;}
-        .scroll{flex:1;min-height:0;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
-        .scroll::-webkit-scrollbar{width:10px;}
-        .scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:5px;}
-        .essay{max-width:920px;margin:0 auto;padding:28px 36px;line-height:1.8;font-size:15px;color:var(--text);}
-        .essay h1{font-size:24px;margin:0 0 18px;}
-        .essay h2{font-size:20px;border-bottom:1px solid var(--border);padding-bottom:6px;margin:30px 0 14px;color:var(--accent);}
-        .essay h3{font-size:17px;margin:24px 0 10px;color:var(--text);}
-        .essay h4{font-size:15px;margin:18px 0 8px;color:var(--text);}
-        .essay p{margin:10px 0;}
-        .essay blockquote{border-left:3px solid var(--accent);background:var(--panel);padding:10px 16px;margin:12px 0;color:var(--muted);border-radius:0 6px 6px 0;}
-        .essay table{border-collapse:collapse;width:100%;margin:14px 0;font-size:14px;}
-        .essay th,.essay td{border:1px solid var(--border);padding:8px 12px;text-align:left;vertical-align:top;}
-        .essay th{background:var(--panel2);font-weight:600;}
-        .essay tr:nth-child(even) td{background:rgba(255,255,255,.02);}
-        .essay code{background:var(--panel2);padding:2px 6px;border-radius:4px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;color:var(--accent);}
-        .essay pre{background:var(--panel2);padding:14px 16px;border-radius:8px;overflow-x:auto;border:1px solid var(--border);}
-        .essay pre code{background:none;padding:0;color:var(--text);}
-        .essay img{max-width:100%;border:1px solid var(--border);border-radius:8px;margin:12px 0;display:block;background:#fff;}
-        .essay .imgwrap{display:block;background:#fff;border:1px solid var(--border);border-radius:8px;margin:12px 0;padding:10px;text-align:center;}
-        .essay .imgwrap img{border:none;border-radius:0;margin:0;display:inline-block;max-width:100%;background:#fff;}
-        .essay hr{border:none;border-top:1px solid var(--border);margin:22px 0;}
-        .essay ul,.essay ol{padding-left:22px;margin:10px 0;}
-        .essay li{margin:4px 0;}
-        .essay a{color:var(--accent);}
-        .empty{display:flex;align-items:center;justify-content:center;height:100%;color:var(--muted);font-size:15px;}
+        .src-note{font-size:12.5px;color:var(--muted);background:var(--panel);border:1px solid var(--border);
+          border-radius:8px;padding:8px 14px;margin:0 0 18px;line-height:1.5;}
+        .src-note b{color:var(--text);font-weight:600;}
         .loading{display:flex;align-items:center;justify-content:center;height:100%;color:var(--muted);font-size:15px;}
         .errbox{max-width:640px;margin:40px auto;padding:20px 24px;border:1px solid var(--danger);
           border-radius:10px;background:var(--panel);color:var(--text);line-height:1.8;}
         .errbox code{background:var(--panel2);padding:2px 6px;border-radius:4px;color:var(--accent);}
         .errbox small{color:var(--muted);}
-        /* ── 移动端：阅读区内边距与字号收窄 ── */
+        /* ── 移动端：阅读区内边距与字号收窄（.essay 已在标准里统一） ── */
         @media (max-width:768px){
-          .essay{padding:18px 16px;font-size:14.5px;line-height:1.75;}
-          .essay h1{font-size:20px;margin:0 0 14px;}
-          .essay h2{font-size:17px;margin:24px 0 12px;}
-          .essay h3{font-size:16px;}
-          .essay table{font-size:13px;}
-          .essay th,.essay td{padding:6px 9px;}
+          .src-note{font-size:11.5px;padding:7px 12px;margin:0 0 14px;}
         }
       </style>
       <div class="switcher">
@@ -289,7 +262,9 @@ class WritingReader extends HTMLElement {
         (part === "task1" ? "Task 1" : "Task 2") + " 内容</div>";
       return;
     }
-    this._out.innerHTML = '<div class="essay">' + wRenderMarkdown(md) + "</div>";
+    this._out.innerHTML = '<div class="essay">' +
+      '<div class="src-note">题目与范文来源自微信公众号 <b>李香农雅思</b></div>' +
+      wRenderMarkdown(md) + "</div>";
     this._out.scrollTop = 0;
   }
 

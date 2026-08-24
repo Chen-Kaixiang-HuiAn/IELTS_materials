@@ -35,7 +35,8 @@ body {
    Use dvh so mobile browser chrome (address bar) doesn't clip the layout. */
 listening-app,
 writing-app,
-hub-page {
+hub-page,
+tutorials-app {
   display: block;
   height: 100vh;
   height: 100dvh;

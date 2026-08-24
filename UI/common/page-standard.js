@@ -118,6 +118,27 @@
    ── Sidebar scrollbar ──
    Sidebars hide the scrollbar (scrollbar-width:none) but keep wheel
    scrolling. Content viewers may show a thin scrollbar.
+
+   ── THE STANDARD IS NOW REAL CODE (not just this doc) ──
+   The layout skeleton, the left-nav tree and the content typography
+   are defined ONCE in shared.js as part of window.SHARED_CSS, so every
+   page that injects <style>${window.SHARED_CSS}</style> gets them for
+   free. Use these class names instead of re-declaring styles:
+
+     Layout:        .app .topbar .brand(.dot) .topright .hint .menu-btn
+                    .body .sidebar .main .stage .backdrop
+                    .vbar(.ttl/.crumb) .nav .foot(.name) .scroll .empty
+     Left nav:      <standard-nav>  →  .nav-tree .nav-group(.head/.body)
+                    .caret .nav-leaf(.badge/.label/.on)
+     Content:       .essay (+ h1-h4, p, ul/ol, blockquote, code, pre,
+                    table, img, .imgwrap, a, hr)
+     Mobile:        ≤768px drawer via .app.nav-open (no extra CSS)
+
+   The <standard-nav> component (UI/common/components/standard-nav.js)
+   builds the tree from a recursive node model and emits
+   "std-nav-select" {index, node}. Pages call nav.setActive(i).
+   This single component replaces the old per-type nav components, so
+   Listening / Writing / Tutorials share ONE identical left-nav style.
    ============================================================ */
 
 // Guard so re-loading this file (or loading it in jsdom tests) is safe.

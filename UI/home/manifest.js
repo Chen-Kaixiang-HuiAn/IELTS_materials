@@ -30,10 +30,10 @@ window.HUB_MODULES = [
  {
   "key": "tutorials",
   "title": "Tutorials 教程",
-  "desc": "写作带练教程与附录语料库（即将上线）。",
+  "desc": "写作带练教程：主线题走通、按题型/话题摊开、附录语料库。",
   "href": "Tutorials/index.html",
   "icon": "📚",
   "accent": "#b07ed6",
-  "ready": false
+  "ready": true
  }
 ];
