@@ -17,6 +17,18 @@
 // ── Markdown renderer (self-contained, mirrors writing-reader's) ──
 const wEsc = window.wEsc;
 
+// In-markdown assets (images / links) resolve relative to the .md's own URL,
+// not the page's base. The .md is fetched from a path under the site root
+// (e.g. /IELTS_materials/Tutorials/Writing/…/x.md on GitHub Pages), so a
+// relative asset like ../../../../Writing-examples/Task1_img/x.png must be
+// anchored to the .md — that keeps the /IELTS_materials subpath on GitHub
+// Pages and stays correct when served from / locally.
+let _mdBase = null;
+function resolveUrl(u, base) {
+  if (!base) return u;
+  try { return new URL(u, base).href; } catch (e) { return u; }
+}
+
 function wInline(s) {
   s = wEsc(s);
   const codes = [];
@@ -24,8 +36,10 @@ function wInline(s) {
     codes.push("<code>" + c + "</code>");
     return "�" + (codes.length - 1) + "�";
   });
-  s = s.replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g, '<span class="imgwrap"><img src="$2" alt="$1"></span>');
-  s = s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  s = s.replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g, (m, alt, src) =>
+    '<span class="imgwrap"><img src="' + resolveUrl(src, _mdBase) + '" alt="' + alt + '"></span>');
+  s = s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (m, txt, href) =>
+    '<a href="' + resolveUrl(href, _mdBase) + '" target="_blank" rel="noopener">' + txt + '</a>');
   s = s.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
   s = s.replace(/__([^_]+)__/g, "<strong>$1</strong>");
   s = s.replace(/\*([^*]+)\*/g, "<em>$1</em>");
@@ -250,6 +264,7 @@ class TutorialsApp extends HTMLElement {
     this.ttlEl.textContent = "(加载中…)";
     this.scrollEl.scrollTop = 0;
     this.navEl.setActive(i);
+    _mdBase = new URL(it.file, location.href).href;
 
     fetch(it.file)
       .then((r) => {
