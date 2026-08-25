@@ -40,10 +40,13 @@ function wInline(s) {
     '<span class="imgwrap"><img src="' + resolveUrl(src, _mdBase) + '" alt="' + alt + '"></span>');
   s = s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (m, txt, href) =>
     '<a href="' + resolveUrl(href, _mdBase) + '" target="_blank" rel="noopener">' + txt + '</a>');
+  // NOTE: underscores are treated as literal characters, NOT emphasis.
+  // Tutorial/Writing content uses `_` for fill-in blanks (______), file
+  // paths and snake_case identifiers; interpreting them as Markdown
+  // emphasis corrupts the text (e.g. ___…___ greedily eats the blanks).
+  // Use *italic* / **bold** for emphasis instead.
   s = s.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
-  s = s.replace(/__([^_]+)__/g, "<strong>$1</strong>");
   s = s.replace(/\*([^*]+)\*/g, "<em>$1</em>");
-  s = s.replace(/_([^_]+)_/g, "<em>$1</em>");
   s = s.replace(/�(\d+)�/g, (m, i) => codes[+i]);
   return s;
 }
