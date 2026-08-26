@@ -25,7 +25,7 @@ class ListeningPlayer extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>${window.SHARED_CSS}</style>
       <style>
-        :host{display:block;border-top:1px solid var(--border);background:var(--panel);}
+        :host{display:block;border-bottom:1px solid var(--border);background:var(--panel);}
         .player{padding:14px 20px 16px;display:flex;flex-direction:column;gap:10px;}
         .row1{display:flex;align-items:center;justify-content:space-between;gap:14px;min-width:0;}
         .meta{min-width:0;}
@@ -57,6 +57,7 @@ class ListeningPlayer extends HTMLElement {
         .ab-group{display:flex;gap:6px;align-items:center;padding-left:6px;border-left:1px solid var(--border);}
         .ab-btn{width:34px;height:34px;font-weight:700;font-size:13px;}
         .ab-btn.on{background:var(--active);border-color:var(--accent);color:var(--accent);}
+        .icon-btn.on{background:var(--active);border-color:var(--accent);color:var(--accent);}
         .vol{display:flex;align-items:center;gap:6px;margin-left:auto;}
         .vol input{width:96px;}
         .err{color:var(--danger);font-size:12px;min-height:14px;}
@@ -137,6 +138,10 @@ class ListeningPlayer extends HTMLElement {
             <span class="lbl">音量</span>
             <div class="vol"><span>🔈</span><input type="range" id="vol" min="0" max="1" step="0.01" value="1"></div>
           </div>
+          <div class="ctl-row">
+            <span class="lbl">字幕</span>
+            <button class="icon-btn" id="lyricsToggle" title="显示/隐藏字幕">CC</button>
+          </div>
         </div>
       </div>
     `;
@@ -181,6 +186,9 @@ class ListeningPlayer extends HTMLElement {
     );
     this.$("loop").addEventListener("click", () =>
       this.dispatchEvent(new CustomEvent("loop", { bubbles: true, composed: true }))
+    );
+    this.$("lyricsToggle").addEventListener("click", () =>
+      this.dispatchEvent(new CustomEvent("lyrics-toggle", { bubbles: true, composed: true }))
     );
     const vol = this.$("vol");
     vol.addEventListener("input", () =>
@@ -281,6 +289,7 @@ class ListeningPlayer extends HTMLElement {
     $("setA").classList.toggle("on", s.abA != null);
     $("setB").classList.toggle("on", s.abB != null);
     $("loop").classList.toggle("on", !!s.loop);
+    if ($("lyricsToggle")) $("lyricsToggle").classList.toggle("on", !!s.lyrics);
 
     $("err").textContent = s.error || "";
   }

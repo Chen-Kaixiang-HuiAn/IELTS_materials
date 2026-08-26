@@ -1,0 +1,44 @@
+In today’s class I’m going to talk about marine archaeology, the branch of archaeology focusing on human interaction with the sea, lakes and rivers.
+It’s the study of ships, cargoes, shipping facilities, and other physical remains.
+I’ll give you an example, then go on to show how this type of research is being transformed by the use of the latest technology.
+Atlit-Yam was a village on the coast of the eastern Mediterranean, which seems to have been thriving until around 7,000 BC.
+The residents kept cattle, caught fish and stored grain.
+They had wells for fresh water, many of their houses were built around a courtyard and were constructed of stone.
+The village contained an impressive monument: seven half-tonne stones standing in a semicircle around a spring , that might have been used for ceremonial purposes.
+Atlit-Yam may have been destroyed swiftly by a tsunami, or climate change may have caused glaciers to melt and sea levels to rise, flooding the village gradually.
+Whatever the cause, it now lies ten metres below the surface of the Mediterranean, buried under sand at the bottom of the sea.
+It’s been described as the largest and best preserved prehistoric settlement ever found on the seabed.
+For marine archaeologists, Atlit-Yam is a treasure trove.
+Research on the buildings, tools and the human remains has revealed how the bustling village once functioned, and even what diseases some of its residents suffered from.
+But of course this is only one small village, one window into a lost world.
+For a fuller picture, researchers need more sunken settlements, but the hard part is finding them.
+Underwater research used to require divers to find shipwrecks or artefacts, but in the second half of the twentieth century, various types of underwater vehicles were developed, some controlled from a ship on the surface, and some of them autonomous, which means they don’t need to be operated by a person.
+Autonomous underwater vehicles, or AUVs, are used in the oil industry, for instance, to create maps of the seabed before rigs and pipelines are installed.
+To navigate they use sensors, such as compasses and sonar.
+Until relatively recently they were very expensive, and so heavy that they had to be launched from a large vessel with a winch.
+\------------------------
+But the latest AUVs are much easier to manoeuvre – they can be launched from the shore or a small ship.
+And they’re much cheaper, which makes them more accessible to research teams.
+They’re also very sophisticated.
+They can communicate with each other and, for example, work out the most efficient way to survey a site, or to find particular objects on the seabed.
+Field tests show the approach can work.
+For example, in a trial in 2015, three AUVs searched for wrecks at Marzamemi, off the coast of Sicily.
+The site is the final resting place of an ancient Roman ship, which sank in the sixth century AD while ferrying prefabricated marble elements for the construction of an early church.
+The AUVs mapped the area in detail, finding other ships carrying columns of the same material.
+Creating an internet in the sea for AUVs to communicate is no easy matter.
+Wifi networks on land use electromagnetic waves, but in water these will only travel a few centimetres.
+Instead, a more complex mix of technologies is required.
+For short distances, AUVs can share date using light , while acoustic waves are used to communicate over long distances.
+But more creative solutions are also being developed, where an AUV working on the seabed offloads data to a second AUV, which then surfaces and beams the data home to the research team using a satellite.
+There’s also a system that enables AUVs to share information from seabed scans, and other data.
+So if an AUV surveying the seabed finds an intriguing object, it can share the coordinates of the object – that is, its position – with a nearby AUV that carries superior cameras , and arrange for that AUV to make a closer inspection of the object.
+Marine archaeologists are excited about the huge potential of these AUVs for their discipline.
+One site where they’re going to be deployed is the Gulf of Baratti, off the Italian coast.
+In 1974, a 2,000-year-old Roman vessel was discovered here, in 18 metres of water.
+When it sank, it was carrying medical goods, in wooden or tin receptacles.
+Its cargo gives us insight into the treatments available all those years ago, including tablets that are thought to have been dissolved to form a cleansing liquid for the eyes.
+Other Roman ships went down nearby, taking their cargoes with them.
+Some held huge pots made of terracotta.
+Some were used for transporting cargoes of olive oil, and others held wine.
+In many cases it’s only these containers that remain, while the wooden ships have been buried under silt on the seabed.
+Another project that’s about to …
